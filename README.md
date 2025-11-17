@@ -258,6 +258,8 @@ networks:
 3. Сеть уже настроена в networks
 4. Сценарий запущен в detached режиме с помощью команды docker compose up -d
 
+Скрин
+
 ---
 
 
