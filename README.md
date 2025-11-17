@@ -258,7 +258,7 @@ networks:
 3. Сеть уже настроена в networks
 4. Сценарий запущен в detached режиме с помощью команды docker compose up -d
 
-Скрин
+[docker compose up -d](https://github.com/Stvrrow/homework-docker-2/blob/main/img/Screenshot%20from%202025-11-18%2000-09-51.png)
 
 ---
 
@@ -280,6 +280,9 @@ networks:
 
 ### Решение:
 
+1. [docker-compose.yml](https://github.com/Stvrrow/homework-docker-2/blob/main/docker-compose.yml)
+2. [docker ps](https://github.com/Stvrrow/homework-docker-2/blob/main/img/Screenshot%20from%202025-11-18%2000-58-52.png)
+3. [grafana](https://github.com/Stvrrow/homework-docker-2/blob/main/img/Screenshot%20from%202025-11-18%2000-57-01.png)
 
 ---
 
@@ -293,4 +296,4 @@ networks:
 
 ### Решение:
 
-
+[docker compose down -v](https://github.com/Stvrrow/homework-docker-2/blob/main/img/Screenshot%20from%202025-11-18%2001-11-20.png)
