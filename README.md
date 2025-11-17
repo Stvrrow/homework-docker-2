@@ -66,7 +66,7 @@ networks:
 ### Решение:
 
 1. Конфигурация в docker-compose для Prometheus создана. Задано имя strelnikovam-netology-prometheus.
-2. Конфигурация prometheus из репозитория скопирована.
+2. Конфигурация prometheus из репозитория скопирована. В docker-compose добавлен том.
 3. Внешний доступ к порту 9090 с докер-сервера обеспечен.
 
 ```
@@ -96,8 +96,7 @@ services:
     restart: always
 
 volumes:
-  prometheus_data:
-    driver: local
+  prometheus_data: {}
 
 networks:
   strelnikovam-my-netology-hw:
@@ -151,6 +150,7 @@ services:
     restart: always
 
   pushgateway:
+    container_name: strelnikovam-netology-pushgateway
     image: prom/pushgateway
     restart: always
     expose:
@@ -161,8 +161,7 @@ services:
       - strelnikovam-my-netology-hw
 
 volumes:
-  prometheus_data:
-    driver: local
+  prometheus_data: {}
 
 networks:
   strelnikovam-my-netology-hw:
@@ -182,6 +181,83 @@ networks:
 2. Добавьте необходимые тома с данными и конфигурацией (конфигурация лежит в репозитории в директории [6-04/grafana](https://github.com/netology-code/sdvps-homeworks/blob/main/lecture_demos/6-04/grafana/custom.ini).
 3. Добавьте переменную окружения с путем до файла с кастомными настройками (должен быть в томе), в самом файле пропишите логин=<ваши фамилия и инициалы> пароль=netology.
 4. Обеспечьте внешний доступ к порту 3000 c порта 80 докер-сервера.
+
+### Решение:
+
+1. Конфигурация в docker-compose для Pushgateway создана. Задано имя strelnikovam-netology-grafana.
+2. Конфигурация Grafana из репозитория скопирована. В docker-compose добавлен том.
+3. Переменная окружения с путем до файла с кастомными настройками добавлена, в файле прописаны логин и пароль
+4. Внешний доступ к порту 3000 с порта 80 докер-сервера обеспечен.
+
+```
+version: '1'
+
+services:
+
+  prometheus:
+    container_name: strelnikovam-netology-prometheus
+    image: prom/prometheus:v2.36.2
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    links:
+      - cadvisor:cadvisor
+      - alertmanager:alertmanager
+      - pushgateway:pushgateway
+    depends_on:
+      - cadvisor
+      - pushgateway
+    networks:
+      - strelnikovam-my-netology-hw
+    restart: always
+
+  pushgateway:
+    container_name: strelnikovam-netology-pushgateway
+    image: prom/pushgateway
+    restart: always
+    expose:
+      - 9091
+    ports:
+      - "9091:9091"
+    networks:
+      - strelnikovam-my-netology-hw
+
+  grafana:
+    container_name: strelnikovam-netology-grafana
+    image: grafana/grafana
+    user: "472"
+    depends_on:
+      - prometheus
+    ports:
+      - 80:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+    env_file:
+      - ./grafana/config.monitoring
+    networks:
+      - strelnikovam-my-netology-hw
+    restart: always
+
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
+
+networks:
+  strelnikovam-my-netology-hw:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+```
 
 ---
 
