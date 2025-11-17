@@ -87,10 +87,7 @@ services:
     ports:
       - 9090:9090
     links:
-      - cadvisor:cadvisor
-      - alertmanager:alertmanager
     depends_on:
-      - cadvisor
     networks:
       - strelnikovam-my-netology-hw
     restart: always
@@ -139,11 +136,8 @@ services:
     ports:
       - 9090:9090
     links:
-      - cadvisor:cadvisor
-      - alertmanager:alertmanager
       - pushgateway:pushgateway
     depends_on:
-      - cadvisor
       - pushgateway
     networks:
       - strelnikovam-my-netology-hw
@@ -208,11 +202,8 @@ services:
     ports:
       - 9090:9090
     links:
-      - cadvisor:cadvisor
-      - alertmanager:alertmanager
       - pushgateway:pushgateway
     depends_on:
-      - cadvisor
       - pushgateway
     networks:
       - strelnikovam-my-netology-hw
@@ -259,6 +250,20 @@ networks:
         - subnet: 10.5.0.0/16
 ```
 
+---
+
+### Задание 6 
+
+**Выполните действия.**
+
+1. Настройте поочередность запуска контейнеров.
+2. Настройте режимы перезапуска для контейнеров.
+3. Настройте использование контейнерами одной сети.
+5. Запустите сценарий в detached режиме.
+
+### Решение:
+
+1. 
 ---
 
 ### Задание !
