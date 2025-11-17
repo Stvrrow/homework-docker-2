@@ -215,7 +215,6 @@ services:
   grafana:
     container_name: strelnikovam-netology-grafana
     image: grafana/grafana
-    user: "472"
     depends_on:
       - prometheus
     ports:
@@ -223,7 +222,6 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/:/etc/grafana/provisioning/
-      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
     env_file:
       - ./grafana/config.monitoring
     networks:
@@ -260,27 +258,37 @@ networks:
 3. Сеть уже настроена в networks
 4. Сценарий запущен в detached режиме с помощью команды docker compose up -d
 
+---
+
+
+### Задание 7 
+
+**Выполните действия.**
+1. Выполните запрос в Pushgateway для помещения метрики <ваши фамилия и инициалы> со значением 5 в Prometheus: ```echo "<ваши фамилия и инициалы> 5" | curl --data-binary @- http://localhost:9091/metrics/job/netology```.
+2. Залогиньтесь в Grafana с помощью логина и пароля из предыдущего задания.
+3. Cоздайте Data Source Prometheus (Home -> Connections -> Data sources -> Add data source -> Prometheus -> указать "Prometheus server URL = http://prometheus:9090" -> Save & Test).
+4. Создайте график на основе добавленной в пункте 5 метрики (Build a dashboard -> Add visualization -> Prometheus -> Select metric -> Metric explorer -> <ваши фамилия и инициалы -> Apply.
+
+В качестве решения приложите:
+
+* docker-compose.yml **целиком**;
+* скриншот команды docker ps после запуске docker-compose.yml;
+* скриншот графика, постоенного на основе вашей метрики.
+
+
+### Решение:
+
 
 ---
 
-### Задание !
+### Задание 8
 
-`Приведите ответ в свободной форме........`
+**Выполните действия:** 
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+1. Остановите и удалите все контейнеры одной командой.
 
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
+В качестве решения приложите скриншот консоли с проделанными действиями.
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
+### Решение:
+
+
